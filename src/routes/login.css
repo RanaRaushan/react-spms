@@ -1,0 +1,77 @@
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  /* margin-bottom: 20px; */
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-family: inherit;
+}
+
+/* input:focus {
+  outline: none;
+  border-color: #666;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+} */
+
+.label-input-container {
+  margin-bottom: 20px;
+}
+
+.input-margin-btm input {
+  margin-bottom: 10px;
+}
+
+.label-input-container input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  font-size: 18px;
+  font-family: inherit;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: inherit;
+  margin-left: 30%;
+  
+}
+
+.link-label {
+  padding-bottom: 20px;
+  padding-left: 10px;
+  font-size: 14px;
+  
+}
+
+.login-header {
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
