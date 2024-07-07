@@ -6,11 +6,9 @@ import {
   Outlet,
   Route,
   RouterProvider,
-  Routes,
 } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./error-page";
-import Contact from "./routes/contact";
 import Root, { loader as rootLoader} from "./routes/root";
 import LoginPage, { action as loginAction,} from "./routes/login";
 import SingupPage, { action as singupAction,} from "./routes/signup";
@@ -22,7 +20,9 @@ import LogoutPage from "./routes/logout";
 
 const AuthProviderLayout = () => (
   <AuthProvider>
+    <LogoutPage />
     <Outlet />
+    
   </AuthProvider>
 );
 
@@ -30,7 +30,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     // <AuthProvider>
       <Route
-      element={<AuthProviderLayout />} 
+      element={<AuthProviderLayout /> } 
       errorElement={<ErrorPage />}>
         <Route
           path="/"
@@ -39,11 +39,12 @@ const router = createBrowserRouter(
                 <Root />
               </RequireAuth>
             }
-          children= {
-            <Route
-               element={ <LogoutPage />}
-            />
-          }
+          // children= {
+          //   <Route
+          //     path="/"
+          //     element={ <LogoutPage />}
+          //   />
+          // }
           loader={rootLoader}
           // action={rootAction}
           errorElement={<ErrorPage />}

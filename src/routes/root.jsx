@@ -26,7 +26,7 @@ export default function Root() {
     const [searchParams, setSearchParams] = useSearchParams();
     return (
       <>
-        <div id="sidebar">
+        <div>
           <h1>Smart Parking System</h1>
           <div>
             <Form id="search-form" role="search">
