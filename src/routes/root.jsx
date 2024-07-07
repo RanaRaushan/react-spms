@@ -6,6 +6,7 @@ import {
     useSearchParams
   } from "react-router-dom";
 import {get} from '../utils/APIHelper.js';
+import { useAuth } from "../hooks/useAuth.jsx";
 
 
 export async function loader({ request }) {
@@ -21,6 +22,7 @@ export async function loader({ request }) {
 export default function Root() {
     const { filteredParking} = useLoaderData();
     const [searchParams, setSearchParams] = useSearchParams();
+    const { token } = useAuth();
     return (
       <>
         <div>
@@ -35,11 +37,13 @@ export default function Root() {
                 </Link>
               </span>
               
-              <span>&nbsp;Or Login to &nbsp;
-                <Link to={`/login`}>
-                    Smart Parking
-                </Link>
-              </span>
+                {!token && 
+                  <span>&nbsp;Or Login to &nbsp;
+                  <Link to={`/login`}>
+                      Smart Parking
+                  </Link>
+                </span>
+                }
           </div>
           
         </div>

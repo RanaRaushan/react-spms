@@ -19,12 +19,11 @@ export async function post(url, data = {}) {
             },
             body: JSON.stringify(data),
         }).then(response => response.json());
-        
+        console.log("response", response)
+        return response;
     } catch (error) {
         console.log("response error", error)
     }
-    console.log("response", response)
-    return response;
 }
 
 export async function put(url, data = {}) {
