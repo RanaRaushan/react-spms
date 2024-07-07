@@ -7,7 +7,6 @@ import { register_user } from '../utils/APIHelper';
 export async function action({ request }) {
     const registerFormData = await request.formData();
     const registerData = Object.fromEntries(registerFormData);
-    console.log("registerData", registerData)
     let response;
     let error;
     if (registerData && registerData.email && registerData.password)
@@ -25,15 +24,12 @@ const SingupPage = () => {
     const [errors, setErrors] = useState({});
     const actionData = useActionData();
     const formSubmit = useSubmit();
-    console.log("actionData", actionData)
     
     const validateInput = (value, keyName) => {
         const validationError = {};
-        console.log("validating for", keyName, value, errors)
         if (!value) {
             validationError[keyName] ='Required'
         } else {
-            console.log("deleting error for", keyName, value)
             delete errors[keyName];
         }
         
@@ -41,21 +37,17 @@ const SingupPage = () => {
             if (!/^[^@]+@[^]+\.[^]+$/.test(value)) {
                 validationError[keyName] = 'Invalid email address';
             } else {
-                console.log("deleting error for", keyName, value)
                 delete errors[keyName];
             }
         }
         if (keyName === 'password') {
             const {error, valid} = passwordValidator(value)
-            console.log("error valid",error,valid)
             if (valid){
                 validationError[keyName] = error;
             } else {
-                console.log("deleting error for", keyName, value)
                 delete errors[keyName];
             }
         }
-        console.log("validationErrorvalidationError", errors,  validationError)
         setErrors({...errors, ...validationError});
         return validationError;
     }
@@ -94,7 +86,6 @@ const SingupPage = () => {
             const input = inputs[i];
             if (input.nodeName === 'INPUT') {
                 validationError = validateInput(input.value, input.name);
-                console.log(errors)
             }
         }
 

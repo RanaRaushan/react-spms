@@ -66,3 +66,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.header {
+  display: flex;
+  align-items: baseline;
+
+}
+
+.author {
+  font-size: smaller;
+  margin-left: 10px;
+}

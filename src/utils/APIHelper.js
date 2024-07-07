@@ -11,13 +11,18 @@ export async function get(url, params = {}) {
 
 export async function post(url, data = {}) {
     console.log("data", data, JSON.stringify(data))
-    const response = await fetch(PREFIX + url, {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    }).then(response => response.json());
+    try {
+        const response = await fetch(PREFIX + url, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).then(response => response.json());
+        
+    } catch (error) {
+        console.log("response error", error)
+    }
     console.log("response", response)
     return response;
 }

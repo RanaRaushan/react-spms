@@ -15,6 +15,7 @@ import SingupPage, { action as singupAction,} from "./routes/signup";
 import { AuthProvider } from "./hooks/useAuth";
 import { RequireAuth } from "./components/RequireAuth";
 import LogoutPage from "./routes/logout";
+import SmartParkingPage, { loader as parkingLoader} from "./routes/SmartParkingPage";
 
 
 
@@ -34,9 +35,9 @@ const router = createBrowserRouter(
         <Route
           path="/"
           element={
-              <RequireAuth>
+              // <RequireAuth>
                 <Root />
-              </RequireAuth>
+              // </RequireAuth>
             }
           // children= {
           //   <Route
@@ -66,17 +67,17 @@ const router = createBrowserRouter(
           action={singupAction}
           errorElement={<ErrorPage />}
         />,
-        {/* <Route
-          path="/logout"
+        <Route
+          path="/parking"
           element={
               <RequireAuth>
-                <LogoutPage />
+                <SmartParkingPage />
               </RequireAuth>
             }
-          // loader={rootLoader}
+          loader={parkingLoader}
           // action={singupAction}
           errorElement={<ErrorPage />}
-        />, */}
+        />,
       </Route>
   )
 );
