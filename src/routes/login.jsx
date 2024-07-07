@@ -26,7 +26,7 @@ const LoginPage = () => {
             {({ fields, buttons, blocks, $$index }) => {
             return (
                 <div >
-                    <Form method="post" id="login-form" action='/'>
+                    <Form method="get" id="login-form" action='/'>
                         <header className='login-header'>
                             {blocks.title}
                         </header>
