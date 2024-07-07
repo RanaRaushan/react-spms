@@ -1,5 +1,5 @@
 const SERVER_HOST = import.meta.env.VITE_SERVER_HOST;
-const PREFIX = SERVER_HOST + VITE_API_PREFIX;
+const PREFIX = SERVER_HOST + import.meta.env.VITE_API_PREFIX;
 
 export async function get(url, params = {}) {
     const response = await fetch(PREFIX + url, {
