@@ -75,3 +75,7 @@ button {
   font-size: 24px;
   font-weight: bold;
 }
+
+.singup-label-error {
+  color: red;
+}

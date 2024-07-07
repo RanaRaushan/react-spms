@@ -1,41 +1,142 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login, { Render } from 'react-login-page';
-import Logo from 'react-login-page/logo-rect';
 import './login.css';
-import { Form, Link } from 'react-router-dom';
+import { Form, Link, redirect, useActionData, useSubmit } from 'react-router-dom';
+import { register_user } from '../utils/APIHelper';
 
-export async function action() {
-    
-    return { "test":"test" };
+export async function action({ request }) {
+    const registerFormData = await request.formData();
+    const registerData = Object.fromEntries(registerFormData);
+    console.log("registerData", registerData)
+    let response;
+    let error;
+    if (registerData && registerData.email && registerData.password)
+        response = await register_user(registerData)
+    if (response && response.event === "Error") {
+        error = response.message
+        return {registerData:registerData, error: error};
+    }
+    return redirect("/login")
   }
 
 const SingupPage = () => {
-  return (
+    // const [name, setName] = useState('');
+    // const [email, setEmail] = useState('');
+    const [errors, setErrors] = useState({});
+    const actionData = useActionData();
+    const formSubmit = useSubmit();
+    console.log("actionData", actionData)
+    
+    const validateInput = (value, keyName) => {
+        const validationError = {};
+        console.log("validating for", keyName, value, errors)
+        if (!value) {
+            validationError[keyName] ='Required'
+        } else {
+            console.log("deleting error for", keyName, value)
+            delete errors[keyName];
+        }
+        
+        if (keyName === 'email') {
+            if (!/^[^@]+@[^]+\.[^]+$/.test(value)) {
+                validationError[keyName] = 'Invalid email address';
+            } else {
+                console.log("deleting error for", keyName, value)
+                delete errors[keyName];
+            }
+        }
+        if (keyName === 'password') {
+            const {error, valid} = passwordValidator(value)
+            console.log("error valid",error,valid)
+            if (valid){
+                validationError[keyName] = error;
+            } else {
+                console.log("deleting error for", keyName, value)
+                delete errors[keyName];
+            }
+        }
+        console.log("validationErrorvalidationError", errors,  validationError)
+        setErrors({...errors, ...validationError});
+        return validationError;
+    }
+
+    const passwordValidator = (password) => {
+        const errorList = [];
+        if (password.length < 8) {
+            errorList.push('<li>Password must be at least 8 characters long</li>');
+        }
+        if (!/[A-Z]/.test(password)) {
+            errorList.push('<li>Password must contain at least one uppercase letter</li>');
+        }
+        if (!/[a-z]/.test(password)) {
+            errorList.push('<li>Password must contain at least one lowercase letter</li>');
+        }
+        if (!/[0-9]/.test(password)) {
+            errorList.push('<li>Password must contain at least one number</li>');
+        }
+        if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+            errorList.push('<li>Password must contain at least one special character</li>');
+        }
+        
+        const htmlString = "<ul>" + errorList.join("<br>") + "</ul>"
+        const errorHtmlObj = errorList.length ? {__html:htmlString} : {__html:""}
+        const containError = errorList.length ? true : false
+        setErrors({...errors, ...errorList});
+        return {error:errorHtmlObj, valid:containError};
+    };
+
+    
+    const validateSubmit = (e) => {
+        // e.preventDefault();
+        const inputs = e.target.elements;
+        let validationError;
+        for (let i = 0; i < inputs.length; i++) {
+            const input = inputs[i];
+            if (input.nodeName === 'INPUT') {
+                validationError = validateInput(input.value, input.name);
+                console.log(errors)
+            }
+        }
+
+    }
+
+    return (
     <div className="login-body">
         <Login>
         <Render>
             {({ fields, buttons, blocks, $$index }) => {
             return (
                 <div >
-                    <header className='login-header'>
-                        {blocks.title}
-                    </header>
-                    <div className='label-input-container input-margin-btm'>
-                        <label>{fields.username}</label>
-                    </div>
-                    <div className='label-input-container'>
-                        <label>{fields.password}</label>
-                    </div>
-                    <div className='link-label'>
-                        <Link to={`/login`}>
-                            Already have an account? Sign in
-                        </Link>
-                    </div>
-                    <div >
-                        <Form method="post">
+                    <Form method="post" id="signup-form" onSubmit={(e) => validateSubmit(e)}>
+                        <header className='login-header'>
+                            {blocks.title}
+                        </header>
+                        <div className='label-input-container input-margin-btm'>
+                            <label>{fields.firstName}</label>
+                            {errors.fname && <div className='singup-label-error'>{errors.fname}</div>}
+                        </div>
+                        <div className='label-input-container input-margin-btm'>
+                            <label>{fields.lastName}</label>
+                            {errors.lname && <div className='singup-label-error'>{errors.lname}</div>}
+                        </div>
+                        <div className='label-input-container input-margin-btm'>
+                            <label>{fields.email}</label>
+                            {errors.email && <div className='singup-label-error'>{errors.email}</div>}
+                        </div>
+                        <div className='label-input-container'>
+                            <label>{fields.password}</label>
+                            {errors.password && <div className='singup-label-error'><div dangerouslySetInnerHTML={errors.password} /></div>}
+                        </div>
+                        <div className='link-label'>
+                            <Link to={`/login`}>
+                                Already have an account? Sign in
+                            </Link>
+                        </div>
+                        {actionData && actionData.error && <div className='singup-label-error'>{actionData.error}</div>}
+                        <div className= {errors ? "disabled" : ""}>
                             {buttons.submit}
-                        </Form>
-                    </div>
+                        </div>
+                    </Form>
                 </div>
             );
             }}
@@ -46,9 +147,11 @@ const SingupPage = () => {
         <Login.Block keyname="title" tagName="span">
             Singup
         </Login.Block>
-        <Login.Input keyname="username" placeholder="Please enter Email" />
-        <Login.Input keyname="password" placeholder="Please enter Password" type="password"/>
-        <Login.Button keyname="submit" type="submit">
+        <Login.Input name="firstName" keyname="firstName" placeholder="Please enter First Name" onChange={(e) => validateInput(e.target.value, "firstName") }/>
+        <Login.Input name="lastName" keyname="lastName" placeholder="Please enter Last Name" onChange={(e) => validateInput(e.target.value, "lastName") }/>
+        <Login.Input name="email" keyname="email" placeholder="Please enter Email" onChange={(e) => validateInput(e.target.value, "email") }/>
+        <Login.Input name="password" keyname="password" placeholder="Please enter Password" type="password" onChange={(e) => validateInput(e.target.value, "password") }/>
+        <Login.Button keyname="submit" type="submit" disabled={errors && Object.keys(errors).length ? 'disabled' : ''} >
             Singup
         </Login.Button>
         </Login>

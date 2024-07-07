@@ -10,7 +10,7 @@ import {
 import "./index.css";
 import ErrorPage from "./error-page";
 import Root, { loader as rootLoader} from "./routes/root";
-import LoginPage, { action as loginAction,} from "./routes/login";
+import LoginPage from "./routes/login";
 import SingupPage, { action as singupAction,} from "./routes/signup";
 import { AuthProvider } from "./hooks/useAuth";
 import { RequireAuth } from "./components/RequireAuth";
@@ -28,7 +28,6 @@ const AuthProviderLayout = () => (
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    // <AuthProvider>
       <Route
       element={<AuthProviderLayout /> } 
       errorElement={<ErrorPage />}>
@@ -57,7 +56,7 @@ const router = createBrowserRouter(
               </RequireAuth>
           }
           // loader={rootLoader}
-          action={loginAction}
+          // action={loginAction}
           errorElement={<ErrorPage />}
         />,
         <Route
@@ -79,42 +78,8 @@ const router = createBrowserRouter(
           errorElement={<ErrorPage />}
         />, */}
       </Route>
-    // </AuthProvider>
   )
 );
-
-
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Root />,
-//     errorElement: <ErrorPage />,
-//     loader: rootLoader,
-//     action: rootAction,
-//     children: [
-//       {
-//         path: "contacts/:contactId",
-//         element: <Contact />,
-//       },
-//     ],
-//   },
-//   {
-//     path: "/login",
-//     element: <LoginPage />,
-//     errorElement: <ErrorPage />,
-//     // loader: rootLoader,
-//     action: loginAction,
-//   },
-  
-//   {
-//     path: "/singup",
-//     element: <SingupPage />,
-//     errorElement: <ErrorPage />,
-//     // loader: rootLoader,
-//     action: singupAction,
-//   },
-// ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
