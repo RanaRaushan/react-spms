@@ -1,8 +1,8 @@
-const host = "http://localhost:8080"
-const prefix = host + '/api/v1';
+const SERVER_HOST = import.meta.env.VITE_SERVER_HOST;
+const PREFIX = SERVER_HOST + VITE_API_PREFIX;
 
 export async function get(url, params = {}) {
-    const response = await fetch(prefix + url, {
+    const response = await fetch(PREFIX + url, {
         method: 'GET',
         params,
     });
@@ -11,7 +11,7 @@ export async function get(url, params = {}) {
 
 export async function post(url, data = {}) {
     console.log("data", data, JSON.stringify(data))
-    const response = await fetch(prefix + url, {
+    const response = await fetch(PREFIX + url, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export async function post(url, data = {}) {
 }
 
 export async function put(url, data = {}) {
-    const response = await fetch(prefix + url, {
+    const response = await fetch(PREFIX + url, {
         method: 'PUT',
         headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export async function put(url, data = {}) {
 }
 
 export async function delete_call(url, params = {}) {
-    const response = await fetch(prefix + url, {
+    const response = await fetch(PREFIX + url, {
         method: 'DELETE',
         params,
     });

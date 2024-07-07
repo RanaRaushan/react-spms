@@ -18,7 +18,7 @@ const LoginPage = () => {
         const expireAt = new Date().getTime() + Number(token.expires_in)
         await setAuthenticateUser({"body":token, "expireAt":expireAt})        
         };
-
+        
   return (
     <div className="login-body">
         <Login>
