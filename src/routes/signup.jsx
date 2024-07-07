@@ -143,7 +143,7 @@ const SingupPage = () => {
         <Login.Input name="email" keyname="email" placeholder="Please enter Email" onChange={(e) => validateInput(e.target.value, "email") }/>
         <Login.Input name="password" keyname="password" placeholder="Please enter Password" type="password" onChange={(e) => validateInput(e.target.value, "password") }/>
         <Login.Button keyname="submit" type="submit" disabled={errors && Object.keys(errors).length ? 'disabled' : ''} >
-            Singup
+            Signup
         </Login.Button>
         </Login>
     </div>
