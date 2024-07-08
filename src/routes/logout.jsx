@@ -9,8 +9,7 @@ const LogoutPage = () => {
     const { token, logout } = useAuth();
     const location = useLocation();
     const currentPath = location.pathname;
-    const toShow = currentPath !== '/callback';
-    console.log("location",location)
+    const toShow = currentPath !== '/auth/callback';
     const handleLogout = () => {
       logout();
     };

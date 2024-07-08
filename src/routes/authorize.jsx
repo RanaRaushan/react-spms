@@ -4,6 +4,7 @@ import {
   } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
+import { SpinnerCircularSplit } from "spinners-react";
   
 
 
@@ -29,8 +30,7 @@ import { useEffect } from "react";
       <>
         {state ? 
         <div>
-            <h2>Loading...</h2>
-            <p>Please wait...</p>
+           <SpinnerCircularSplit size={50} thickness={100} speed={100} color="#36ad47" secondaryColor="rgba(0, 0, 0, 0.44)" />
         </div>
             : <></>
         }

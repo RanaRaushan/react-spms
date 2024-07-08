@@ -6,7 +6,7 @@ import {auth_get_token} from '../utils/APIHelper.js';
 import { SpinnerDotted } from 'spinners-react';
 
 
-const REDIRECT_URL = "/callback";
+const REDIRECT_URL = "/auth/callback";
 
 export async function action({ request }) {
     console.log("login action | start")

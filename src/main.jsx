@@ -47,7 +47,7 @@ const router = createBrowserRouter(
             errorElement={<ErrorPage />}
           />,
           <Route
-            path="callback"
+            path="auth/callback"
             element={<Authorize />}
             errorElement={<ErrorPage />}
           />,
