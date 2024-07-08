@@ -18,11 +18,11 @@ export async function post(url, data = {}) {
             'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
-        }).then(response => response.json());
-        console.log("response", response)
-        return response;
-    } catch (error) {
-        console.log("response error", error)
+        })
+        return response.json();
+    } catch (response) {
+        console.log("response error", response)
+        console.log(response.status, response.statusText);
     }
 }
 
@@ -48,7 +48,7 @@ export async function delete_call(url, params = {}) {
 export async function auth_get_token(data = {}) {
     const AUTH_API_URL = "/auth";
     return await post(AUTH_API_URL, data)
-}
+    }
 
 export async function register_user(data = {}) {
     const AUTH_API_URL = "/auth/register";

@@ -9,13 +9,14 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./error-page";
-import Root, { loader as rootLoader} from "./routes/root";
-import LoginPage from "./routes/login";
+import Root from "./routes/root";
+import LoginPage, {action as loginAction} from "./routes/login";
 import SingupPage, { action as singupAction,} from "./routes/signup";
 import { AuthProvider } from "./hooks/useAuth";
 import { RequireAuth } from "./components/RequireAuth";
 import LogoutPage from "./routes/logout";
 import SmartParkingPage, { loader as parkingLoader} from "./routes/SmartParkingPage";
+import Authorize, {action as authorizeAction} from "./routes/authorize";
 
 
 
@@ -39,27 +40,38 @@ const router = createBrowserRouter(
                 <Root />
               // </RequireAuth>
             }
-          // children= {
-          //   <Route
-          //     path="/"
-          //     element={ <LogoutPage />}
-          //   />
-          // }
-          loader={rootLoader}
-          // action={rootAction}
           errorElement={<ErrorPage />}
         />,
-        <Route
-          path="/login"
-          element={
-              <RequireAuth>
-                <LoginPage />
-              </RequireAuth>
-          }
+        {/* <Route
+          id="auth"
+          path="/auth"
+          // element={
+          //     // <RequireAuth>
+          //       <LoginPage />
+          //     // </RequireAuth>
+          // }
           // loader={rootLoader}
           // action={loginAction}
           errorElement={<ErrorPage />}
-        />,
+        > */}
+          <Route
+            id="login"
+            path="login"
+            element={<LoginPage />}
+            // loader={rootLoader}
+            action={loginAction}
+            errorElement={<ErrorPage />}
+          />,
+          <Route
+            path="callback"
+            element={<Authorize />}
+            // loader={rootLoader}
+            // action={singupAction}
+            action={authorizeAction}
+            errorElement={<ErrorPage />}
+          />,
+        {/* </Route> */}
+          
         <Route
           path="/signup"
           element={<SingupPage />}

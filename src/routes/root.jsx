@@ -9,19 +9,9 @@ import {get} from '../utils/APIHelper.js';
 import { useAuth } from "../hooks/useAuth.jsx";
 
 
-export async function loader({ request }) {
-    const url = new URL(request.url);
-    const q = url.searchParams.get("slotName");
-    const parkingData = await get("/parking", q);
-    const filteredParking = !q ? parkingData : parkingData.filter(slot => {
-        return slot.slotName.includes(q);
-      });
-    return { filteredParking };
-}
+
 
 export default function Root() {
-    const { filteredParking} = useLoaderData();
-    const [searchParams, setSearchParams] = useSearchParams();
     const { token } = useAuth();
     return (
       <>
