@@ -43,6 +43,7 @@ input {
 
 .label-input-container input {
   width: 100%;
+  min-width: 300px;;
   padding: 10px;
   border: none;
   border-radius: 20px;
