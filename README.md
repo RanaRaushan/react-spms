@@ -42,7 +42,7 @@ Routing
 
 Spring Boot Backend
 
-- The Spring Boot application is accessibale adn deployed at https://spms-latest.onrender.com/ 
+- The Spring Boot application is accessibale and deployed at https://spms-latest.onrender.com/ 
 
 Deployment
 
