@@ -1,0 +1,27 @@
+# Redirect with a 200
+[[redirects]]
+from = "/login"
+to = "/login"
+status = 200
+
+[[redirects]]
+from = "/auth/callback"
+to = "/auth/callback"
+status = 200
+
+[[redirects]]
+from = "/signup"
+to = "/signup"
+status = 200
+
+[[redirects]]
+from = "/parking"
+to = "/parking"
+status = 200
+
+# Redirect with a 404
+[[redirects]]
+from = "/*"
+to = "/404"
+status = 404
+
