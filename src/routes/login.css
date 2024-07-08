@@ -77,5 +77,11 @@ button {
 }
 
 .singup-label-error {
+  width: 300px; 
+  padding-left: 10px;
+  padding-bottom: 15px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
   color: red;
 }

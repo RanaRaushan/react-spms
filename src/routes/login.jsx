@@ -22,6 +22,9 @@ export async function action({ request }) {
         error = response.message
         return {loginData:loginData, error: error};
     }
+    if (!response) {
+        return {loginData:loginData, error: "Something went wrong! Please try again after some time..."};
+    }
     console.log("login action | response", response)
     const expireAt = new Date().getTime() + Number(response.expires_in)
     return {loginData:loginData, tokenData:{"body":response, "expireAt":expireAt}};
@@ -86,7 +89,7 @@ const LoginPage = () => {
         </Login.Block>
         <Login.Input name="email" keyname="email" placeholder="Please enter Email" defaultValue={actionData?.loginData?.email} />
         <Login.Input name="password" keyname="password" placeholder="Please enter password" type="password" defaultValue={actionData?.loginData?.password} />
-        <Login.Button keyname="submit" type="submit" >
+        <Login.Button keyname="submit" type="submit" disabled={navigation.state === "submitting"}>
             {loginButtonText}
         </Login.Button>
         </Login>
