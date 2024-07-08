@@ -11,6 +11,9 @@ export async function action({ request }) {
     let error;
     if (registerData && registerData.email && registerData.password)
         response = await register_user(registerData)
+    else {
+        return {registerData:registerData, error: "Please enter data to Register"};
+    }
     if (response && response.event === "Error") {
         error = response.message
         return {registerData:registerData, error: error};
@@ -78,18 +81,18 @@ const SingupPage = () => {
     };
 
     
-    const validateSubmit = (e) => {
-        // e.preventDefault();
-        const inputs = e.target.elements;
-        let validationError;
-        for (let i = 0; i < inputs.length; i++) {
-            const input = inputs[i];
-            if (input.nodeName === 'INPUT') {
-                validationError = validateInput(input.value, input.name);
-            }
-        }
+    // const validateSubmit = (e) => {
+    //     // e.preventDefault();
+    //     const inputs = e.target.elements;
+    //     let validationError;
+    //     for (let i = 0; i < inputs.length; i++) {
+    //         const input = inputs[i];
+    //         if (input.nodeName === 'INPUT') {
+    //             validationError = validateInput(input.value, input.name);
+    //         }
+    //     }
 
-    }
+    // }
 
     return (
     <div className="login-body">
@@ -98,7 +101,7 @@ const SingupPage = () => {
             {({ fields, buttons, blocks, $$index }) => {
             return (
                 <div >
-                    <Form method="post" id="signup-form" onSubmit={(e) => validateSubmit(e)}>
+                    <Form method="post" id="signup-form" >
                         <header className='login-header'>
                             {blocks.title}
                         </header>
@@ -132,9 +135,6 @@ const SingupPage = () => {
             );
             }}
         </Render>
-        {/* <Login.Block keyname="logo" tagName="span">
-            <Logo />
-        </Login.Block> */}
         <Login.Block keyname="title" tagName="span">
             Singup
         </Login.Block>

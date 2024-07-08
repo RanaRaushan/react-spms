@@ -1,11 +1,5 @@
 import {
-    Outlet,
-    Link,
-    useLoaderData,
-    Form,
-    useSearchParams
-  } from "react-router-dom";
-import {get} from '../utils/APIHelper.js';
+    Link  } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.jsx";
 
 
@@ -37,9 +31,6 @@ export default function Root() {
           </div>
           
         </div>
-        {/* <div id="detail">
-            <Outlet />
-        </div> */}
       </>
     );
   }

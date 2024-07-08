@@ -3,8 +3,6 @@ import {
     Link,
     useLoaderData,
     Form,
-    useNavigate,
-    useLocation,
     useSearchParams
   } from "react-router-dom";
 import {get} from '../utils/APIHelper.js';

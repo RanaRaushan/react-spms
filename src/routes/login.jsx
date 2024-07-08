@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Login, { Render } from 'react-login-page';
 import './login.css';
-import { Form, Link, Navigate, Outlet, redirect, useActionData, useBeforeUnload, useNavigate, useNavigation, useSubmit } from 'react-router-dom';
+import { Form, Link, useActionData, useNavigate, useNavigation } from 'react-router-dom';
 import {auth_get_token} from '../utils/APIHelper.js';
-import { useAuth } from '../hooks/useAuth.jsx';
 
-
-        // const {setAuthenticateUser } = useAuth();
-            // await setAuthenticateUser({"body":response, "expireAt":expireAt});
 
 const REDIRECT_URL = "/callback";
 
@@ -37,11 +33,6 @@ const LoginPage = () => {
     const navigation = useNavigation();
     const actionData = useActionData();
     const navigate = useNavigate();
-    // const {setAuthenticateUser } = useAuth();
-    // useBeforeUnload(() => {
-        // console.log("Inside useBeforeUnload", actionData);
-        // await setAuthenticateUser(actionData.tokenData)
-    //   });
     console.log("actionData", actionData)
 
     useEffect(() => {
@@ -53,11 +44,11 @@ const LoginPage = () => {
       }, [actionData, navigate]);
       
     const loginButtonText =
-    navigation.state === "submitting"
-      ? "Loggin..."
-      : navigation.state === "loading"
-      ? "Logged-in!"
-      : "Login";
+        navigation.state === "submitting"
+        ? "Loggin..."
+        : navigation.state === "loading"
+        ? "Logged-in!"
+        : "Login";
   return (
     <>
     <div className="login-body">
@@ -90,9 +81,6 @@ const LoginPage = () => {
             );
             }}
         </Render>
-        {/* <Login.Block keyname="logo" tagName="span">
-            <Logo />
-        </Login.Block> */}
         <Login.Block keyname="title" tagName="span">
             Login
         </Login.Block>
