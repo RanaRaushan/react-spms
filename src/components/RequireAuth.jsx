@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { validateToken } from "./ValidateToken";
+import { validateToken } from "../utils/ValidateToken";
 
 export const RequireAuth = ({ children }) => {
   const { token, logout } = useAuth();

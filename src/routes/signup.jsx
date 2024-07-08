@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Login, { Render } from 'react-login-page';
 import './login.css';
-import { Form, Link, redirect, useActionData, useSubmit } from 'react-router-dom';
+import { Form, Link, redirect, useActionData, useNavigation, useSubmit } from 'react-router-dom';
 import { register_user } from '../utils/APIHelper';
+import { SpinnerDotted } from 'spinners-react';
 
 export async function action({ request }) {
     const registerFormData = await request.formData();
@@ -18,6 +19,9 @@ export async function action({ request }) {
         error = response.message
         return {registerData:registerData, error: error};
     }
+    if (!response) {
+        return {registerData:registerData, error: "Something went wrong! Please try again after some time..."};
+    }
     return redirect("/login")
   }
 
@@ -26,7 +30,7 @@ const SingupPage = () => {
     // const [email, setEmail] = useState('');
     const [errors, setErrors] = useState({});
     const actionData = useActionData();
-    const formSubmit = useSubmit();
+    const navigation = useNavigation();
     
     const validateInput = (value, keyName) => {
         const validationError = {};
@@ -81,19 +85,11 @@ const SingupPage = () => {
     };
 
     
-    // const validateSubmit = (e) => {
-    //     // e.preventDefault();
-    //     const inputs = e.target.elements;
-    //     let validationError;
-    //     for (let i = 0; i < inputs.length; i++) {
-    //         const input = inputs[i];
-    //         if (input.nodeName === 'INPUT') {
-    //             validationError = validateInput(input.value, input.name);
-    //         }
-    //     }
-
-    // }
-
+    
+    const signupButtonText =
+        navigation.state === "loading"
+        ? "Signed-in!"
+        : "Signup";
     return (
     <div className="login-body">
         <Login>
@@ -143,7 +139,9 @@ const SingupPage = () => {
         <Login.Input name="email" keyname="email" placeholder="Please enter Email" onChange={(e) => validateInput(e.target.value, "email") }/>
         <Login.Input name="password" keyname="password" placeholder="Please enter Password" type="password" onChange={(e) => validateInput(e.target.value, "password") }/>
         <Login.Button keyname="submit" type="submit" disabled={errors && Object.keys(errors).length ? 'disabled' : ''} >
-            Signup
+        {navigation.state === "submitting" 
+            ? <SpinnerDotted size={30} thickness={100} speed={100} color="rgba(57, 143, 172, 1)" /> 
+             : signupButtonText}
         </Login.Button>
         </Login>
     </div>

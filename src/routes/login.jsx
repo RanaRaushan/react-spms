@@ -3,6 +3,7 @@ import Login, { Render } from 'react-login-page';
 import './login.css';
 import { Form, Link, useActionData, useNavigate, useNavigation } from 'react-router-dom';
 import {auth_get_token} from '../utils/APIHelper.js';
+import { SpinnerDotted } from 'spinners-react';
 
 
 const REDIRECT_URL = "/callback";
@@ -47,13 +48,13 @@ const LoginPage = () => {
       }, [actionData, navigate]);
       
     const loginButtonText =
-        navigation.state === "submitting"
-        ? "Loggin..."
-        : navigation.state === "loading"
+        navigation.state === "loading"
         ? "Logged-in!"
         : "Login";
   return (
     <>
+    
+    
     <div className="login-body">
         <Login>
         <Render>
@@ -90,7 +91,9 @@ const LoginPage = () => {
         <Login.Input name="email" keyname="email" placeholder="Please enter Email" defaultValue={actionData?.loginData?.email} />
         <Login.Input name="password" keyname="password" placeholder="Please enter password" type="password" defaultValue={actionData?.loginData?.password} />
         <Login.Button keyname="submit" type="submit" disabled={navigation.state === "submitting"}>
-            {loginButtonText}
+            {navigation.state === "submitting" 
+            ? <SpinnerDotted size={30} thickness={100} speed={100} color="rgba(57, 143, 172, 1)" /> 
+             : loginButtonText}
         </Login.Button>
         </Login>
     </div>
