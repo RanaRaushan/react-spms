@@ -1,6 +1,6 @@
 Project Overview
 
-Access at [Smart Parking](https://main--sunny-strudel-e52bca.netlify.app/)
+Visit [Smart Parking](https://rana-spms.netlify.app/)
 
 This project is a React application that uses Vite for rapid development, React Router for client-side routing, and Spring Boot for backend API and JWT authentication.
 
