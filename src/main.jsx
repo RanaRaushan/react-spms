@@ -70,7 +70,11 @@ const router = createBrowserRouter(
           children={
               <Route
                 path="slots/:slotId"
-                element={<ParkingSLotPage />}
+                element={
+                  <RequireAuth>
+                    <ParkingSLotPage />
+                  </RequireAuth>
+                }
                 // action={singupAction}
                 errorElement={<ErrorPage />}
               />
