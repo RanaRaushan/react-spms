@@ -26,9 +26,9 @@ export default function SmartParkingPage() {
     const params = useParams();
     const [slot, setSlot] = useState(filteredParking.find(s => s.slotId == params.slotId));
 
-    const { readyState, sendJsonMessage, lastJsonMessage } = useWebSocket(
-      "wss://ws-feed.exchange.coinbase.com"
-    );
+    // const { readyState, sendJsonMessage, lastJsonMessage } = useWebSocket(
+    //   "wss://ws-feed.exchange.coinbase.com"
+    // );
 
     return (
       <>
