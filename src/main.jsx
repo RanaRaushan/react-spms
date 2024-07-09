@@ -17,6 +17,7 @@ import { RequireAuth } from "./components/RequireAuth";
 import LogoutPage from "./routes/logout";
 import SmartParkingPage, { loader as parkingLoader} from "./routes/SmartParkingPage";
 import Authorize from "./routes/authorize";
+import ParkingSLotPage from "./routes/parkingSlot";
 
 
 
@@ -50,9 +51,7 @@ const router = createBrowserRouter(
             path="auth/callback"
             element={<Authorize />}
             errorElement={<ErrorPage />}
-          />,
-        {/* </Route> */}
-          
+          />,          
         <Route
           path="/signup"
           element={<SingupPage />}
@@ -62,12 +61,20 @@ const router = createBrowserRouter(
         <Route
           path="/parking"
           element={
-              <RequireAuth>
+              // <RequireAuth>
                 <SmartParkingPage />
-              </RequireAuth>
+              // </RequireAuth>
             }
           loader={parkingLoader}
           errorElement={<ErrorPage />}
+          children={
+              <Route
+                path="slots/:slotId"
+                element={<ParkingSLotPage />}
+                // action={singupAction}
+                errorElement={<ErrorPage />}
+              />
+          }
         />,
       </Route>
   )

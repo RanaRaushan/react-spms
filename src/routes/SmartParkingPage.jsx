@@ -3,9 +3,11 @@ import {
     Link,
     useLoaderData,
     Form,
-    useSearchParams
+    useSearchParams,
+    useParams
   } from "react-router-dom";
 import {get} from '../utils/APIHelper.js';
+import { useState } from "react";
 
 
 export async function loader({ request }) {
@@ -19,8 +21,10 @@ export async function loader({ request }) {
 }
 
 export default function SmartParkingPage() {
-    const { filteredParking} = useLoaderData();
+    const { filteredParking } = useLoaderData();
     const [searchParams, setSearchParams] = useSearchParams();
+    const params = useParams();
+    const [slot, setSlot] = useState(filteredParking.find(s => s.slotId == params.slotId));
     return (
       <>
         <div>
@@ -50,12 +54,15 @@ export default function SmartParkingPage() {
               ></div>
             </Form>
           </div>
+          <div>
+            <Outlet context={slot}/>
+          </div>
           <nav>
             {filteredParking?.length ? (
                 <ul>
                 {filteredParking.map((slot) => (
                     <li key={slot.slotId}>
-                    <Link to={`slots/${slot.slotId}`}>
+                    <Link to={`slots/${slot.slotId}`} onClick={(e) => setSlot(slot)} >
                         {slot.slotName ? (
                         <>
                             {slot.slotName}
@@ -73,9 +80,6 @@ export default function SmartParkingPage() {
                 </p>
             )}
           </nav>
-        </div>
-        <div id="detail">
-            <Outlet />
         </div>
       </>
     );

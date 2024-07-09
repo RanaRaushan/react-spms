@@ -1,15 +1,23 @@
 const SERVER_HOST = import.meta.env.VITE_SERVER_HOST;
 const PREFIX = SERVER_HOST + import.meta.env.VITE_API_PREFIX;
 
-export async function get(url, params = {}) {
-    const response = await fetch(PREFIX + url, {
-        method: 'GET',
-        params,
-    });
-    return response.json();
+export async function get(url, params = {}, requireAuth=false) {
+    try {
+        const response = await fetch(PREFIX + url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+            params,
+        });
+        return response.json();
+    } catch (response) {
+        console.log("response error", response)
+        console.log(response.status, response.statusText);
+    }
 }
 
-export async function post(url, data = {}) {
+export async function post(url, data = {}, requireAuth=false) {
     console.log("data", data, JSON.stringify(data))
     try {
         const response = await fetch(PREFIX + url, {
