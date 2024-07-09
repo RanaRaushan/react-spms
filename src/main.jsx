@@ -15,7 +15,7 @@ import SingupPage, { action as singupAction,} from "./routes/signup";
 import { AuthProvider } from "./hooks/useAuth";
 import { RequireAuth } from "./components/RequireAuth";
 import LogoutPage from "./routes/logout";
-import SmartParkingPage, { loader as parkingLoader} from "./routes/SmartParkingPage";
+import SmartParkingPage, { loader as parkingLoader} from "./routes/smartParking";
 import Authorize from "./routes/authorize";
 import ParkingSLotPage from "./routes/parkingSlot";
 
